@@ -101,7 +101,7 @@ h1~h6共六级标签
 	<strong>	定义加重语气
 	<sub>	定义下标字
 	<sup>	定义上标字
-	<ins>	定义插入字
+	<ins>	定义插入字(下划线)
 	<del>	定义删除字
 - 注释： 请始终将正斜杠添加到子文件夹。假如这样书写链接：href="https://www.runoob.com/html"，就会向服务器产生两次 HTTP 请求。
 	这是因为服务器会添加正斜杠到这个地址，然后创建一个新的请求，就像这样：href="https://www.runoob.com/html/"。
