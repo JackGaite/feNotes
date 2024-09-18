@@ -272,6 +272,7 @@
 - background-repeat: repeat-x/repeat-y/no-repeat
 - background-position: left top (默认) 或 50px 30px
 - background 复合属性，不区分顺序和数量
+- background-size: cover 铺满父元素
 
 ## 鼠标
 - cursor: pointer/move/wait/crosshair/help/...
@@ -344,7 +345,7 @@
 	> 第一个子元素的margin-top会作用于父元素，最后一个子元素的margin-bottom会作用于父元素
 	> 解决方案：1.给父元素设置宽度不为0的padding或border：`border: 1px solid transparent`(不推荐)；2.**父元素设置属性overflow**：`overflow: hidden`
 	> ##### margin合并	
-	> 兄弟元素的margin-bottom与另一兄弟元素的margin-top会取较大值而非相加
+	> 兄弟元素的margin-bottom与另一兄弟元素的margin-top会取较大值而非相加 (貌似开启flex后是相加)
 	> 只给其中一个兄弟元素赋值margin即可规避该问题
 
 ## 其它
@@ -490,7 +491,7 @@
 	- align-items: flex-end
 	- align-items: center
 	- align-items: baseline
-	- align-items: stretch
+	- align-items: stretch (默认，注意是图片的话会给拉伸填满)
 - 多行
 	- align-content: flex-start
 	- align-content: flex-end
@@ -503,3 +504,48 @@
 - flex-grow “瓜分”剩余空间，加权式。默认为0即不拉伸，若所有项目该值相同，则等分空余空间
 - flex-shrink 如果父容器空间不够，压缩因子，默认为1。各个项目需要缩短的长度为父容器缺额按个项目原长度加权计算后的长度：Δl = ΔL*factor
 	> ![图片alt](./img_resources/CSS/CSS05.png "")
+	
+- flex复合属性
+	- flex: auto 即flex: 1 1 auto (可以拉伸 可以压缩 不设置基准长度)
+	- flex: 1 即flex: 1 1 0
+	- flex: none 即flex: 0 0 auto
+	- flex: 0 auto 即flex: 0 1 auto
+
+- 排序
+	- order属性。数值越小越靠前，默认为0
+
+- 单独对齐
+	- align-self 可单独调整项目的对齐方式。默认值为auto即继承父元素的align-items属性
+	
+
+# 6 响应式布局
+
+## 媒体查询
+
+- 媒体类型 值：print/screem/all
+	```
+	/* 只有在打印机或打印预览时才应用的样式 */
+	@media print {
+		h1 {..}
+	}
+	```
+- 媒体特性
+	```
+	/* 当视口宽度小于等于800时，应用样式 */
+	@media (max-width:800px) {
+		h1 { background-color: blue; }
+	}
+	@media (device-width:1920px) {
+		h1 { background-color: blue; }
+	}
+	```
+	> ![图片alt](./img_resources/CSS/CSS06.png "")
+- 运算符
+	```
+	@media screen and (min-width:700px) and (max-width:800px) {
+		h1 { background-color:orange; }
+	}
+	```
+	
+- calc()
+	- `width: calc(100% - 80px);`
