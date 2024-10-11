@@ -457,6 +457,14 @@
 	- 参考点为离它最近的一个有滚动机制的祖先元素
 	- 不脱离文档流，特点与相对定位基本一致
 	
+- z-index
+
+## 多列布局
+- column-count
+- column-width 浏览器将按照你指定的宽度尽可能多的创建列, 任何剩余的空间会被现有列平分, 这意味着你可能无法得到你期望的宽度
+- column-gap
+- column-rule
+
 	
 # 5 弹性盒子 flex
 
@@ -473,7 +481,7 @@
 - 主轴换行 一行排满了后换行避免“缩”在一起
 	- flex-wrap: wrap
 	- flex-wrap: wrap-reverse(从下往上排）
-	- flex-wrap: nowrap (不换行)
+	- flex-wrap: nowrap (默认，不换行)
 	- flex-flow: row wrap (复合属性，但最好用分开写的形式)
 -
 - 主轴对齐方式
