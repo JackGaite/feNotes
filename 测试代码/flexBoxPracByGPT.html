@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+        /* 设置header元素A */
+        header {
+            display: flex;
+            justify-content: center;
+            height: auto;
+            /* 动态高度，适应内容 */
+            height: 100px;
+            /* 最小高度为100px */
+            background-color: orange;
+            padding: 10px 0;
+            /* 额外内边距，避免挤压 */
+        }
+
+        /* 设置子元素B (ul) */
+        header ul {
+            display: flex;
+            flex-wrap: wrap;
+            /* 允许换行 */
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        /* 设置li子元素 */
+        header ul li {
+            flex-basis: 23%;
+            /* 每个li占23%的宽度，确保四个一行 */
+            margin-bottom: 10px;
+            /* 增加行间距 */
+        }
+
+        /* 设置超链接样式 */
+        header ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 50px;
+        }
+
+        header ul li a:hover {
+            color: #007BFF;
+        }
+    </style>
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <header>
+        <ul>
+            <li><a href="#">超链接 1</a></li>
+            <li><a href="#">超链接 2</a></li>
+            <li><a href="#">超链接 3</a></li>
+            <li><a href="#">超链接 4</a></li>
+            <li><a href="#">超链接 5</a></li>
+            <li><a href="#">超链接 6</a></li>
+            <li><a href="#">超链接 7</a></li>
+            <li><a href="#">超链接 8</a></li>
+        </ul>
+    </header>
+        
+    <script src="" async defer></script>
+</body>
+
+</html>
