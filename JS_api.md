@@ -391,8 +391,30 @@ https://zh.javascript.info/dispatch-events
 > ##### swiper插件网站
 
 
+---------------------------------------------------------------------
+# 第四部分 与服务端交互：AJAX fetch axios
+结合promise食用
+
+## XMLRequestHttp
+
+
+## fetch
+
+
+## axios
+
+
+
 ----------------------------------------------------------------------
-# 第 部分 性能优化和杂项
+# 第五部分 性能优化和杂项
+
+## 页面加载
+
+### DOMContentLoaded
+
+### 脚本异步加载 async 和 defer
+
+### 外部资源加载 onload 和 onerror
 
 ## 防抖
 ```
