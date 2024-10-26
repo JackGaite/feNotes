@@ -393,16 +393,17 @@ https://zh.javascript.info/dispatch-events
 
 ---------------------------------------------------------------------
 # 第四部分 与服务端交互：AJAX fetch axios
-结合promise食用
+结合promise食用  
+注意：AJAX是一个技术统称，并非特指，意思是“异步的JS和XML”。XMLHttpRequest只是实现其的一种方式
 
 ## XMLRequestHttp
 
 
 ## fetch
-
+ES6提出，基于promise对象实现，解决XMLHttpRequest的回调地狱。与XHR并列
 
 ## axios
-
+随着vue的兴起的一个库，基于promise封装的网络请求库，基于XHR二次封装
 
 
 ----------------------------------------------------------------------

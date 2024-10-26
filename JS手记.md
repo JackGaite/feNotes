@@ -98,7 +98,7 @@
 		let myTemplateLiteral = `first line  
 								 second line`;
 		```
-	- ★ 可用模版${}将变量用作字符串，立即求值并转换：`str = '${name}'`
+	- ★ 可用模版`${}`将变量用作字符串，立即求值并转换：`str = '${name}'`
 		```
 		let name = "Bill"; 
 		let greeting = `Hello ${ name }.`;  // greeting == "Hello Bill."
@@ -118,6 +118,8 @@
 - String()函数 （同样的，`b = String(b)`）
 	- toString对null和undefined会报错，String可以解决
 	- 对于拥有toString方法的值调用String时，实际上调用其toString方法
+	> **数字加前导0**：String.prototype.padStart()
+	> e.g. String(5).padStart(2, '0') // '05'
 - Number()函数 
 	- 字符串 e.g. Number("011")返回11（十进制）, Number("1.1")返回1.1
 	- 对于不合法的数字，则转换为NaN
@@ -142,34 +144,33 @@
 	n.toPrecision(10)    // => "123456.7890"
 	```
 
-> #### 自动类型转换
->
-	```
-	a = 10 - '5'	// 10-5
-	a = 10 + null	// 10+0			null变成0
-	a = 6 - undefined	// 6- NaN	undefined变成NaN
-	alert( Number("123z") );      // NaN（从字符串“读取”数字，读到 "z" 时出现错误）
-	+a							// 加号可将a自动转换成数值
-	
-	a = 'hello' + 'world'
-	a = '1' + 2		// "12"
-	a = true + ''	// "true" 比String()更实用的方法
-	
-	!!age			// Boolean(x)
-	
-	let octal = "0o" + n.toString(8);   // octal == "0o21"
-	let hex = "0x" + n.toString(16);    // hex == "0x11"
-	```
+> #### 【自动类型转换】
+>	```
+>	a = 10 - '5'	// 10-5
+>	a = 10 + null	// 10+0			null变成0
+>	a = 6 - undefined	// 6- NaN	undefined变成NaN
+>	alert( Number("123z") );      // NaN（从字符串“读取”数>字，读到 "z" 时出现错误）
+>	+a							// 加号可将a自动转换成数值
+>	
+>	a = 'hello' + 'world'
+>	a = '1' + 2		// "12"
+>	a = true + ''	// "true" 比String()更实用的方法
+>	
+>	!!age			// Boolean(x)
+>	
+>	let octal = "0o" + n.toString(8);   // octal == "0o21"
+>	let hex = "0x" + n.toString(16);    // hex == "0x11"
+>	```
  
-> #### Destructuring Assignment
-	```
-	let [x,y] = [1,2];  // Same as let x=1, y=2
-	[x,y] = [x+1,y+1];  // Same as x = x + 1, y = y + 1
-	[x,y] = [y,x];      // Swap the value of the two variables
-	[x,y]               // => [3,2]: the incremented and swapped values
-	// 用于函数输出
-	let [r,theta] = toPolar(1.0, 1.0); 
-	```
+> #### 【Destructuring Assignment】
+>	```
+>	let [x,y] = [1,2];  // Same as let x=1, y=2
+>	[x,y] = [x+1,y+1];  // Same as x = x + 1, y = y + 1
+>	[x,y] = [y,x];      // Swap the value of the two variables
+>	[x,y]               // => [3,2]: the incremented and swapped values
+>	// 用于函数输出
+>	let [r,theta] = toPolar(1.0, 1.0); 
+>	```
 	
 	
 ## 1.3 运算和操作符operators
@@ -759,6 +760,8 @@ for(let i = 0; i < 4; i++) {
 	
 ## 箭头函数
 箭头函数是针对那些没有自己的“上下文”，但在当前上下文中起作用的短代码的
+- 使用表达式体语法 (params) => { object: literal } 返回对象字面量时，不能按预期工作。
+- 用括号将对象字面量包装起来 `const func = () => ({ foo: 1 });`
 
 
 ## this
