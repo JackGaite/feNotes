@@ -559,6 +559,10 @@ for(let i = 0; i < 4; i++) {
 	- 方法三：Date.now() （只能得到当前的时间戳）
 - 其它方法（见高级设计p106-7）
 
+> #### 使用moment.js库
+> `moment().format('YYYY-MM-DD HH:mm:ss')`的结果：2024-12-08 10:15:59
+
+
 ### RegExp
 
 ### 内置
@@ -575,7 +579,16 @@ for(let i = 0; i < 4; i++) {
 
 	let {title, width, height} = options;
 	```
+	- 参考：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#%E8%A7%A3%E6%9E%84%E5%AF%B9%E8%B1%A1
+	- 更改属性名称：
+		```
+		const o = { p: 42, q: true };
+		const { p: foo, q: bar } = o;
 
+		console.log(foo); // 42
+		console.log(bar); // true
+
+		```
 ## 2.2下 集合引用类型
 
 ### Array
@@ -620,6 +633,7 @@ for(let i = 0; i < 4; i++) {
 		console.log(colors);   // ["red", "green","blue"] 
 		console.log(colors2);  // ["red", "green", "blue", "yellow", "black", "brown"] 
 		```
+		- **注意到concat是新建一个数组，而push是对于原数组**
 	- 迭代方法
 		- every()：对数组每一项都运行传入的函数，如果对每一项函数都返回true，则这个方法返回true。 
 		- ★filter()：对数组每一项都运行传入的函数，函数返回true的项会组成数组之后返回。 
@@ -663,6 +677,7 @@ for(let i = 0; i < 4; i++) {
 	- map.keys() —— 遍历并返回一个包含所有键的可迭代对象，
 	- map.values() —— 遍历并返回一个包含所有值的可迭代对象，
 	- map.entries() —— 遍历并返回一个包含所有实体 [key, value] 的可迭代对象，for..of 在默认情况下使用的就是这个
+	- 直接用for...of语句获得[key, value]：`for (let [key, value] of map)`
 - fromEntries `let obj = Object.fromEntries(map.entries()); // 创建一个普通对象`
 
 - WeakMap 和 Map 的第一个不同点就是，WeakMap 的键必须是对象，不能是原始值
@@ -688,6 +703,7 @@ for(let i = 0; i < 4; i++) {
 	- set.has(value) —— 如果 value 在 set 中，返回 true，否则返回 false。
 	- set.clear() —— 清空 set。
 	- set.size —— 返回元素个数。
+	- const myArr = Array.from(mySet1);  // 使用 Array.from 将 Set 对象转换为数组对象
 
 
 ## 2.3 原型和继承
@@ -738,6 +754,11 @@ for(let i = 0; i < 4; i++) {
 	> ##### 展开运算符 展开数组
 	> console.log(Math.max(...[1,2,3,5,8]))
 	> 合并数组：`const arr3 = [...arr1, ...arr2]`
+	> 对原对象中的字段重新赋值，以及添加一个新的字段
+	>	```
+     const obj = { name: 'xx', age: 12 }
+		 const o = { ...obj, name: 'yy', hobby: 'ss' } // 重写name，添加hobby
+		```
 
 ### 构造函数
 - 和一般函数几乎一样，但：命名以大写开头，只能用new来调用（实例化）
@@ -762,6 +783,12 @@ for(let i = 0; i < 4; i++) {
 箭头函数是针对那些没有自己的“上下文”，但在当前上下文中起作用的短代码的
 - 使用表达式体语法 (params) => { object: literal } 返回对象字面量时，不能按预期工作。
 - 用括号将对象字面量包装起来 `const func = () => ({ foo: 1 });`
+> 箭头函数和function声明函数的区别：
+> 1. this
+> 2. argument
+> 3. new
+> 4. prototype属性
+> 5. call、apply和bind
 
 
 ## this
