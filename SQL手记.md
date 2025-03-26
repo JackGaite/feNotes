@@ -1,10 +1,43 @@
 DDL
 
 ## nodejs中使用mysql
+
+### 安装和创建项目
 安装包：
 npm i -g sequelize-cli
 npm i sequelize mysql2
+安装脚手架
+npm i -g express-generator@4
+
+(注意先新建一个文件夹作为项目存放的地方，cd进入里面再执行下面命令)
+创建项目
+express --no-view [projectname] && cd [projectnane]
+// no-view意思是不需要视图模板，针对于专门做后端接口的情况
+执行npm i安装依赖
+
+修改routes/index.js，使提示信息由html格式变为json格式：
+router.get(...) {
+	res.*json*({*message*: ''})
+
+### 项目结构
+/bin/www
+可见于package.json中，启动项目的文件
+/public
+存放静态资源（纯后端接口项目可忽略）
+/routes
+核心。将网址和程序代码映射起来
+.app.js
+核心。路由配置
+
+### ORM -- Sequelize
+
 初始化： sequelize init
+生成以下四个文件夹
+- config： 链接到数据库需要的配置文件
+- migrations: 新增表、删除表、修改字段等操作，需要添加迁移文件
+- models: 存放模型文件，对应数据库中的每张表
+- seeders: 种子文件，添加测试数据，一个命令自动填充进数据表
+
 建立模型：
 sequelize model:generate --name Article --attributes title:string,content:text
 注意表名这里要是单数
@@ -16,6 +49,23 @@ sequelize db:seed --seed xxx-article		// 运行种子文件
 > 1.数据还不多不重要时，回滚迁移：sequelize db:migrate:undo
 >> 注意：对于较早前创建的迁移文件，需要回滚多次才能回滚到它，一次回滚只管一个文件；改好后迁移可以同时迁移所有表文件
 > 2.数据已经有很多了，增加另一个迁移文件
+例子：
+新建另一个迁移增加用户头像字段：
+sequelize migration:create --name add-avatar-to-user
+打开生成的迁移文件，修改：
+up:
+await queryInterface.addColumn('Users', 'avatar', {
+	type: Sequelize.STRING
+})
+down:
+await queryInterface.removeColumn('Users', 'avatar')
+然后运行迁移：
+sequelize db:migrate
+注意还需要到模型文件里手动增加avatar字段
+
+### 其它
+- 验证数据
+可以在model中的validate字段里添加规则
 
 ### 数据类型
 建表：  
@@ -24,7 +74,7 @@ sequelize db:seed --seed xxx-article		// 运行种子文件
 - 会自动创建createdAt和updatedAt时间字段，无需手动添加
 
 ### 密码加密
-在模型model中引入bcryptjs库，找到password字段，设置set方法：
+在模型model中引入bcryptjs库， 找到password字段，设置set方法：
 ```
 set(value) {
 	if (value.length >= 6 && value.length <= 255) {

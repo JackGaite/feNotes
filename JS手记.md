@@ -120,13 +120,15 @@
 	- 对于拥有toString方法的值调用String时，实际上调用其toString方法
 	> **数字加前导0**：String.prototype.padStart()
 	> e.g. String(5).padStart(2, '0') // '05'
-- Number()函数 
+- **★ Number()函数 / 其它类型转数字**
 	- 字符串 e.g. Number("011")返回11（十进制）, Number("1.1")返回1.1
 	- 对于不合法的数字，则转换为NaN
 	- 空字符串或全是空格，则转换为0
 	- 布尔值true为1，false为0
 	- null转换为0；undefined转换为NaN
 	- 对象，调用valueOf()，并按上述规则转换返回的值。如果转换结果是NaN，则调用toString()，再按转换字符串的规则转换
+		- 对象（包括数组）会首先被转换为相应的基本类型值，如果返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。
+	- Symbol 类型的值不能转换为数字，会报错。
 - parseInt() 字符串-->整数
 - parseFloat() 字符串 --> 浮点数
 - Boolean()函数 （**0、NaN、null、undefined是false其余为true; 只有空串是false, "0"是true**）
@@ -215,13 +217,18 @@
 		alert( '2' > 1 ); // true，字符串 '2' 会被转化为数字 2
 		alert( '01' == 1 ); // true，字符串 '01' 会被转化为数字 1
 		```
-- 相等`==` <--> 全等`===`（值和类型均相同，因为**比较相等时不转换操作数**，推荐使用）
+- ★ 相等`==` <--> 全等`===`（值和类型均相同，因为**比较相等时不转换操作数**，推荐使用）
 	- e.g. `var x = "5"; x == 5;`TRUE  <=>  `var x = "5"; x === 5;`FALSE
 	> 规则：
 	> ![图片alt](./img_resources/JS/JS04.png "")
 	> null === undefined 为false
+	> NaN !== NaN 为 true
 	> alert( null >= 0 ); // true,当使用数学式或其他比较方法 `< > <= >=` 时, null被转化为0, undefined被转化为NaN
 	> 除了严格等===外，其他但凡有undefined/null参与的比较，都需要格外小心。对于取值可能是null/undefined的变量，请按需要分别检查它的取值情况
+	> ** Object.is() 与比较操作符 “===”、“==” 的区别 **
+		- ● 使用双等号（==）进行相等判断时，如果两边的类型不一致，则会进行强制类型转化后再进行比较。
+		- ● 使用三等号（===）进行相等判断时，如果两边的类型不一致时，不会做强制类型准换，直接返回 false。
+		- ● 使用 Object.is 来进行相等判断时，一般情况下和三等号的判断相同，它处理了一些特殊的情况，比如 -0 和 +0 不再相等，两个 NaN 是相等的。
 - `b = '123'; b = +b`可将字符串转为数字
 - ES7新增乘方符`**`和`**=`以取代`Math.pow()`
 - eval("3+2")    // => 5
@@ -504,18 +511,23 @@ for(let i = 0; i < 4; i++) {
 		- 三角函数等
 - String
 	- 查找子串
-		- `str.indexOf(substr, pos)` 从给定位置 pos 开始，在 str 中查找 substr，如果没有找到，则返回 -1
+		- ★`str.indexOf(substr, pos)` 从给定位置 pos 开始，在 str 中查找 substr，如果没有找到，则返回 -1，否则返回子串起始位置
 		- `str.includes(substr, pos)` 根据 str 中是否包含 substr 来返回 true/false
 		- `"Widget".startsWith("Wid")  // true，"Widget" 以 "Wid" 开始`
 		- `"Widget".endsWith("get")  // true，"Widget" 以 "get" 结束`
 	- 获取子串
-		- `str.slice(start [, end])` 返回字符串从start到end（不包括，可选）的部分；参数是负值意思是起始位置从字符串结尾计算
-		- `str.substring(start [, end])` 与slice几乎相同，但允许start大于end(这时slice返回空串，substring仍能返回正确值)；不支持负参数
+		- ★`str.slice(start [, end])` 返回字符串从start到end（不包括，可选）的部分；参数是负值意思是起始位置从字符串结尾计算
+		- ★`str.substring(start [, end])` 与slice几乎相同，但允许start大于end(这时slice返回空串，substring仍能返回正确值)；不支持负参数
 		- `str.substr(start [, length])` ：`str.substr(2, 4)  // 从位置 2 开始，获取 4 个字符`
+	- 替换
+		- ★`let replacement = str.replace('World', 'Kimi')`
+	- 分割
+		- ★`let parts = str.split(' '); // ['Hello', 'World']` 把字符串以分隔符为界分割成一个个子串放入数组
 	- 串的比较
 		- localeCompare()
-	- str.repeat(n) —— 重复字符串 n 次
-	- str.trim() —— 删除字符串前后的空格 
+	- ★str.repeat(n) —— 重复字符串 n 次
+	- ★str.trim() —— 删除字符串前后的空格 
+	- str.toUpperCase()/toLowerCase()
 	> ![图片alt](./img_resources/JS/JS07.png "")
 
 ### Date
