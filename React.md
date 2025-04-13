@@ -245,6 +245,26 @@ Card里包裹的所有内容都传入props.children
 		- set后读取a会发现值并未改变，应用：√ `setAge(a => a + 1)`（参数变量名称是任意的）
 	- ？set后读取状态仍是旧值： https://zh-hans.react.dev/reference/react/useState#ive-updated-the-state-but-logging-gives-me-the-old-value
 	- 文档ref: https://zh-hans.react.dev/reference/react/useState#setstate
+- 案例分析
+```
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    <>
+      <h1>{number}</h1>
+      <button onClick={() => {
+        setNumber(n => n + 1);
+        setNumber(n => n + 1);
+        setNumber(n => n + 1);
+        setTimeout(() => {
+					alert(number);
+				}, 3000);
+      }}>+3</button>
+    </>
+  )
+}
+```
 	
 ### useReducer
 1. 用传递给dispatch的action对象，表明用户刚刚做了什么

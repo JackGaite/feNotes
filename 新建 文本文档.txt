@@ -1,0 +1,264 @@
+- nodejs/express 等后端基础内容（为了接口）
+- react等内容复习，尤其是几个钩子的用法
+- fetch axios的复习，异步的理念搞懂
+
+- 构建一个网站的几大主要技术点
+	1. 路由 Routing
+	2. 数据获取 Fetching
+	3. 样式 Styling
+	4. 组件 （antd。。。）
+	
+- axios替换fetch
+- 状态管理继续
+- mock后端接口
+
+## 方向
+- 个人图书馆
+	- 收录收藏和读过的书籍
+	- 有图书图片、简介和个人读后感（咋感觉像豆瓣呢）
+
+### 待做点
+
+① 登陆逻辑  ② 用户设置和权限  ③ 样式布局
+
+- 【①】用户名等不能含有空格
+- 【①】！登录页发现用户信息不存在则直接跳转到注册页
+- 文件上传/下载接口
+- 【③】**网页响应式设计/样式美化**
+- 【③】（移动端适配）下滑无限加载
+- 【③】点击页面出现弹幕动画如点赞的手
+- 【③】主题色更换、深色模式
+- ~~筛选功能~~
+- 表单回填功能
+- 图片懒加载/对象存储OSS：存放静态文件并支持处理图片
+- 【②】登录前主页可以进入，但显示受限内容；登录后可解锁访问
+- 【③】登录/注册两页换成单页左右滑动的切换形式
+- 【③】loading状态（参考React-router官网案例）
+- 【③】※ 动画（帧动画 svg canvas webgl）
+- 【②③】设置中可以切换布局（如从侧栏切换为顶栏）
+	- 甚至可以提供切换文章列表布局 卡片视图/列表视图（默认）
+- 【②】个人资料
+- CSS模块化
+- 状态管理：Context → zustand
+- errors: ["jwt expired"] 当token过期后自动重新获取登陆
+	- 可能导致文章列表获取不到显示no data 
+- 图标系统：图标的导入和使用
+
+- 参考React官网文章，看能不能做出它那样的效果，如代码是一个Card包装的，文字背景色也很美观，标题附带链接
+
+## 新知识点
+
+- 清空antd表单：.setFieldsValue({}) 或 .resetFields()，后者需要设置initialValues
+- 踩坑：
+	- Sider 组件提供了属性width用于在js/JSX 中设置宽度。
+	- 但是，此宽度会覆盖通过ant-layout-sider选择器在css中指定的任何宽度。
+- 踩坑： Form。Item使用className貌似无法应用到样式
+- 踩坑：justify-self 在 Flexbox布局中失效 （https://blog.csdn.net/m0_46217225/article/details/118467501）
+- antd-Table进行分页，在onChange中第一个参数是当前页，第二个参数是每页条数
+- 面试：为什么要做axios拦截？因为例如当用户未登录或token过期，返回401，则拦截直接跳转到登录界面
+- 面试：注册页修改必填antd输入框的样式
+- 踩坑： RangePicker放在Form中，Form无法直接获得用户填的日期值
+	- 解决方案：
+	- https://blog.csdn.net/qq_53479087/article/details/138719037
+	- https://segmentfault.com/q/1010000043664104/a-1020000043664215
+- **踩坑：** 
+	- antd的Form.item里不能把注释写在子组件后，
+	- 否则导致Form无法接收到value，点击提交按钮打印formValue该字段的值是undefined：
+	```
+	// 正确
+	<Form.Item label="日期" name="date">
+		{/* 传入locale属性 控制中文显示*/}
+		<RangePicker locale={locale}></RangePicker>
+	</Form.Item>
+	// 报错
+	<Form.Item label="日期" name="date">
+		<RangePicker locale={locale}></RangePicker> {/* 传入locale属性 控制中文显示*/}
+	</Form.Item>
+	```
+- https://ant-design.antgroup.com/docs/blog/form-names-cn#getvalueprops
+- antd tooltip错位
+	- 当内容过长时，tooltip显示位置不正确
+	- 解决：设置css：display: inline-block; width: 100%;
+	- 参考：https://blog.csdn.net/qq_49464155/article/details/125143855
+- antd Select旧写法已过时
+- CSS的作用域是全局的。即不同页面的组件只要有相同的className，就会应用同样的样式
+	- 使用 CSS Modules 可以确保样式只作用于当前组件
+	- `import styles from './Button.module.css'` `<button className={styles.btn}>Click</button>`
+	- 或 CSS-in-JS 解决方案，可以为每个组件生成唯一的样式
+	
+- req.params包含路由参数（在URL的路径部分），而req.query包含URL的查询参数（在URL的？后的参数）。
+	- 例如，如果你有route/user/：name，那么“name”属性可作为req.params.name
+
+- google字体导入
+	- 加载慢，将地址改为`@import url(https://fonts.font.im/css2?family=...)`
+	- 使用：`--body-font: "Noto Sans SC", serif;`
+	- 字体使用原则————serif or sans-sefif：
+		- 通常文章的内文、正文使用易读性较佳的Serif，可增加易读性，且因为会以word为单位，较不容易疲倦。
+		- 而标题、表格内则用较醒目的Sans Serif，它需要显着、醒目，但不必长时间盯着这些字来阅读
+
+- 为什么大家都用i标签<i></i>用作小图标
+	- https://www.zhihu.com/question/26880548
+- 踩坑： z-index不起作用
+	- F12查看z-index发现变灰并有感叹号，提示：The position: static property prevents z-index from having an effect.
+	- 参考：https://blog.csdn.net/weixin_38629529/article/details/120381177 四种原因：
+		- 元素没有设置position属性  元素设置了浮动float  父级元素的z-index比子级元素的z-index小元素的  父级设置了position: relative
+
+- CDN和npm引入方式
+	- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" /><script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+	- 原生应用中使用
+	- // npm install quill 		import Quill from "quill";
+	- SPA应用中使用
+	
+- <select>不要使用selected属性，而是使用defaultValue设置默认值，否则导致选框更改值后无法自动回到初始值
+- 多行文本设置超出部分隐藏并用...代替，使用css：line-clamp属性
+```
+max-height: 60px; /* 设置最大高度 */
+  overflow: hidden; /* 隐藏超出部分 */
+  display: -webkit-box; /* 使用 WebKit 的 box 模型 */
+  -webkit-line-clamp: 3; /* 限制显示的行数 */
+  -webkit-box-orient: vertical; /* 垂直排列 */
+```
+
+- **空数组/空对象在js中会被判定为true！**
+- 使用antd不好直接在它组件上改，特别是布局flex等，不妨加一层子div
+
+
+## Tailwind + HeadlessUI
+
+
+## react-query
+
+### mock后端
+- mockjs
+- apifox https://apifox.com/help/overview
+
+### echarts
+https://echarts.apache.org/examples/zh/
+
+- React生态：https://ant-design.antgroup.com/docs/react/recommendation-cn
+- antd进阶：https://zhuanlan.zhihu.com/p/375753910	https://zhuanlan.zhihu.com/p/422752055
+
+### Zustand
+
+- 参考：[谈谈复杂应用的状态管理（上）：为什么是 Zustand - 知乎](https://zhuanlan.zhihu.com/p/591981209)
+
+**useState理解**
+- 状态更新后，React会重新调用组件的函数体（即重新执行组件函数），然后计算新的return(<></>)部分。
+- React 根据新的 JSX 输出和旧的虚拟 DOM 进行 diffing（差异比较），最终仅更新实际需要变动的部分
+（即真实 DOM 层面只更新发生变化的内容，而不是整个页面重新渲染）
+- 如果父组件状态更新并重新渲染，那么所有子组件也会重新渲染（无论子组件是否依赖该状态），
+除非子组件通过 React.memo 或 useMemo 进行了优化
+- 深入：视图刷新和性能优化
+1. 使用 React.memo 包裹子组件，可以避免子组件在父组件状态变化时不必要的渲染
+2. 对于回调函数或复杂计算结果，可以使用 useCallback 和 useMemo 缓存，避免重复计算或不必要的渲染。
+3. 将无关的状态拆分成多个 useState，可以减少状态更新时的渲染范围
+
+**antd-table**
+`render: var => {}`： render会在数据中去找var属性，把它的值传过来使用
+`<Table rowKey="id" columns={columns} dataSource={list}` render在columns里
+
+> 路由是否可以不要硬编码进代码中，如router.navigate('/login')，这样会导致路由名称变化后要到处找进行修改
+
+- 给Form.item加上字段label，即可利用require：true自动给字段前加上红色*号
+
+## 日志
+- 12/17
+	- 完善了注册功能，解决了无法正确确认密码的bug
+	- 调整了注册页布局，正确加入了必填项星号而不影响整体布局
+	- 若用户名或账户名已注册，则提示用户然后跳转到登录页
+	- 登录密码错误，进行提示
+- 12/18
+	- 
+- 12/26
+	- 用户管理，按条件搜索用户
+	- Select组件已将旧的待废弃写法更新
+- 12/29 v0.4 dev
+	- 更改了路由，改为相对路径，更灵活的应对路径的更改
+- 3/3 
+	- tailwind可以正常使用了
+	- Quill富文本编辑器的二次开发
+	- 
+
+### React 组件重新渲染的触发条件
+- props 或 state 变化时；
+- 父组件重新渲染，则子组件跟着~；
+- Context变化时，使用该Context的组件重新渲染
+- 当 key 发生变化时，React 会卸载旧组件并挂载新组件，从而触发重新渲染
+- Redux等全局状态变化
+
+### 避免组件重新渲染造成变量值还原的方案
+1. 短期存储、跨渲染周期：使用 useRef。
+2. 长期存储、刷新页面后恢复：使用 localStorage 或 sessionStorage。
+3. 组件内管理复杂逻辑：使用 useReducer。
+4. 多组件间共享状态：使用 Context。
+5. 全局持久化和复用逻辑：使用自定义 Hook 或 URL 参数。
+
+### express中的mysql
+```
+app.post('/signup', (req, res) => {
+	const sql = "INSERT INTO login (`name`, `email, `password`) VALUES (?)"
+	const values = [
+		req.body.name,
+		req.body.email,
+		req.body.password
+	]
+	db.query(sql, [values], (err, data) => {
+		if (err) {
+			return res.json("Error")
+		}
+		return res.json(data)
+	}
+```
+
+
+## 用户中心项目记录
+
+### 项目构建阶段
+错误做法（鱼皮）
+- yarn create umi xxx: 构建出的页面不是要求的，是umi的界面不带登录页
+正确做法（官网）：
+- yarn add @ant-design/pro-cli -g
+- yarn pro create myapp
+（yarn如果报错试试先yarn init）
+
+安装Umi UI
+yarn add @umijs/preset-ui -D 
+
+### 后端初始化
+方式：
+1. GitHub上找模板 springboot template
+2. springboot官方模板 start.spring.io
+3. IDEA开发工具（推荐）
+（若遇到无法连接：第一检查idea是否被允许通过防火墙；第二使用阿里云网址）
+
+在Developer Tools下选择后三项，再选择sql，spring web， mybatis framework
+
+连接MySQL
+
+引入mybatis-plus
+
+修改配置文件application.yml (将初始的application.properties换掉):
+
+
+用户登录名称 jay@1329241399940648.onaliyun.com
+AccessKey ID LTAI5tNyfL3wm4DoBeGhfpLN
+AccessKey Secret xKkP2OMG1LDIdJEeJhiE1OzMaaOOMQ
+
+外网面板地址: https://47.97.28.82:36292/0cb2f3c6
+ 内网面板地址: https://172.21.206.249:36292/0cb2f3c6
+ username: uksdjvhb
+ password: 8e725b49
+
+建立附件管理模型
+sequelize model:generate --name Attachment --attributes userId:integer,originalname:string,filename:string,mimetype:string,size:string,path:string,fullpath:string,url:string
+运行迁移，然后在model中添加关联：
+models.Attachment.belongsTo(models.User, {as: 'user'})
+models.User.hasMany(models.Attachment, {as: 'attachments'})
+
+
+根据你的描述，MulterError: Unexpected field 错误通常是因为前端上传的字段名与后端 Multer 配置的字段名不匹配，或者请求中包含了 Multer 未预期的字段。以下是解决该问题的步骤和建议：
+1. 确保字段名一致
+确保前端上传的文件字段名与后端 Multer 配置的字段名完全一致。
+formData.append('image', fileInput.files[0]); // 确保字段名与后端一致
+const upload = multer({ storage: storage }...)
+upload.single('image')
